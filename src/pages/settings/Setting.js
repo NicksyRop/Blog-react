@@ -26,7 +26,7 @@ export default function Setting() {
           <input type="text" placeholder="Nicksy" />
 
           <label>Email</label>
-          <input type="text" placeholder="nicksy@gnail.com" />
+          <input type="email" placeholder="nicksy@gnail.com" />
 
           <label>Password</label>
           <input type="password" />
