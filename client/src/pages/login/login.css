@@ -34,6 +34,12 @@
 }
 .registerButton {
   position: absolute;
+  padding: 10px;
+  background-color: teal;
+  border: none;
   top: 60px;
+  border-radius: 10px;
+  color: white;
+
   right: 20px;
 }

@@ -1,7 +1,9 @@
 import React from "react";
 import "./topbar.css";
+import { Link } from "react-router-dom";
 
 export default function TopBar() {
+  const user = false;
   return (
     <div className="top">
       <div className="topLeft">
@@ -12,19 +14,52 @@ export default function TopBar() {
       </div>
       <div className="topCenter">
         <ul className="topList">
-          <li className="topListItem">HOME</li>
-          <li className="topListItem">ABOUT</li>
-          <li className="topListItem">CONTACT</li>
-          <li className="topListItem">WRITE</li>
-          <li className="topListItem">LOGOUT</li>
+          <li className="topListItem">
+            <Link to="/" className="link">
+              HOME
+            </Link>
+          </li>
+          <li className="topListItem">
+            <Link to="/" className="link">
+              ABOUT
+            </Link>
+          </li>
+          <li className="topListItem">
+            <Link to="/" className="link">
+              CONTACT
+            </Link>
+          </li>
+          <li className="topListItem">
+            <Link to="/" className="link">
+              WRITE
+            </Link>
+          </li>
+          <li className="topListItem">{user && "LOGOUT"}</li>
         </ul>
       </div>
       <div className="topRight">
-        <img
-          className="topImage"
-          src="https://images.unsplash.com/photo-1482361046637-0226fdcfa3b7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-          alt=""
-        />
+        {user ? (
+          <img
+            className="topImage"
+            src="https://images.unsplash.com/photo-1482361046637-0226fdcfa3b7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+            alt=""
+          />
+        ) : (
+          <ul className="topList">
+            <li className="topListItem">
+              <Link to="/register" className="link">
+                REGISTER
+              </Link>
+            </li>
+
+            <li className="topListItem">
+              <Link to="/login" className="link">
+                LOGIN
+              </Link>
+            </li>
+          </ul>
+        )}
+
         <i className="searchIcon fa-solid fa-magnifying-glass"></i>
       </div>
     </div>
