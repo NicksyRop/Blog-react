@@ -1,16 +1,31 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import "./singlePost.css";
 
 export default function SinglePost() {
+  const location = useLocation();
+  const path = location.pathname.split("/")[2];
+
+  const [post, setPost] = useState({});
+
+  useEffect(() => {
+    const getPost = async () => {
+      const res = await axios.get("/posts/" + path);
+      setPost(res.data);
+    };
+
+    getPost();
+  }, [path]);
   return (
     <div className="singlePost">
       <div className="singlePostWrapper">
-        <img
-          className="singlePostImage"
-          src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bmF0dXJlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-          alt=""
-        />
+        {post.photo && (
+          <img className="singlePostImage" src={post.photo} alt="" />
+        )}
+
         <h1 className="singlePostTitle">
-          Minim culpa enim culpa commodo ipsum
+          {post.title}
           <div className="singlepostEdit">
             <i className="singlePostIcon  fa-solid fa-pen-to-square"></i>
             <i className="singlePostIcon fa-solid fa-trash"></i>
@@ -19,24 +34,17 @@ export default function SinglePost() {
 
         <div className="singlePostInfo">
           <span className="singlePostAuthor">
-            Author : <b>My name</b>
+            Author :
+            <Link className="link" to={`/?user=${post.username}`}>
+              <b>{post.username}</b>
+            </Link>
           </span>
-          <span className="singlePostDate"> 1 hour ago </span>
+          <span className="singlePostDate">
+            {" "}
+            {new Date(post.createdAt).toDateString()}{" "}
+          </span>
         </div>
-        <p className="singlePostDesc">
-          Occaecat nostrud ad occaecat anim reprehenderit. Voluptate elit in
-          anim magna. Nostrud officia irure reprehenderit deserunt sint minim
-          sint dolore. Laborum occaecat nulla culpa adipisicing dolore. Occaecat
-          nostrud ad occaecat anim reprehenderit. Voluptate elit in anim magna.
-          Nostrud officia irure reprehenderit deserunt sint minim sint dolore.
-          Laborum occaecat nulla culpa adipisicing dolore Occaecat nostrud ad
-          occaecat anim reprehenderit. Voluptate elit in anim magna. Nostrud
-          officia irure reprehenderit deserunt sint minim sint dolore. Laborum
-          occaecat nulla culpa adipisicing doloreOccaecat nostrud ad occaecat
-          anim reprehenderit. Voluptate elit in anim magna. Nostrud officia
-          irure reprehenderit deserunt sint minim sint dolore. Laborum occaecat
-          nulla culpa adipisicing dolore
-        </p>
+        <p className="singlePostDesc">{post.desc}</p>
       </div>
     </div>
   );

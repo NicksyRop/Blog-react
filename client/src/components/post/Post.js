@@ -1,34 +1,28 @@
 import "./post.css";
-
-export default function Post() {
+import React from "react";
+import { Link } from "react-router-dom";
+export default function Post({ post }) {
   return (
     <div className="post">
-      <img
-        className="postImage"
-        src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bmF0dXJlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-        alt=""
-      />
+      {post.photo && <img className="postImage" src={post.photo} alt="" />}
+
       <div className="postInfo">
         <div className="postCats">
-          <span className="postCat">Life</span>
-          <span className="postCat">Music</span>
+          {post.categories.map((c) => (
+            <span className="postCat">{c.name}</span>
+          ))}
         </div>
-        <span className="postTitle">
-          Non irure commodo eiusmod elit proident voluptate.
-        </span>
+        <Link to={`/post/${post._id}`} className="link">
+          {" "}
+          <span className="postTitle">{post.title}</span>
+        </Link>
+
         <hr />
-        <span className="postDate">1 hour ago</span>
+        <span className="postDate">
+          {new Date(post.createdAt).toDateString()}
+        </span>
       </div>
-      <p className="postDesc">
-        Cupidatat sit incididunt duis fugiat velit eiusmod ullamco. Officia
-        velit reprehenderit consectetur incididunt ut occaecat. Ut sit tempor
-        duis esse sit est fugiat culpa.Cupidatat sit incididunt duis fugiat
-        velit eiusmod ullamco. Officia velit reprehenderit consectetur
-        incididunt ut occaecat. Ut sit tempor duis esse sit est fugiat
-        culpa.Cupidatat sit incididunt duis fugiat velit eiusmod ullamco.
-        Officia velit reprehenderit consectetur incididunt ut occaecat. Ut sit
-        tempor duis esse sit est fugiat culpa.
-      </p>
+      <p className="postDesc">{post.desc}</p>
     </div>
   );
 }
